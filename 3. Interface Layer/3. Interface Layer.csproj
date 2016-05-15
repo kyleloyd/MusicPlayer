@@ -81,6 +81,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\next.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\open.png" />
   </ItemGroup>
   <ItemGroup>
@@ -90,12 +93,16 @@
     <None Include="Resources\play.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\playlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\stop.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\next.png" />
-    <Content Include="Resources\playlist.png" />
-    <Content Include="Resources\previous.png" />
+    <None Include="Resources\playlist_open.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
