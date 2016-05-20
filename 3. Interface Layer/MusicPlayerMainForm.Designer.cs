@@ -94,6 +94,7 @@
             // 
             this.btnNext.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnNext.BackColor = System.Drawing.Color.Silver;
+            this.btnNext.Enabled = false;
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.Image = ((System.Drawing.Image)(resources.GetObject("btnNext.Image")));
             this.btnNext.Location = new System.Drawing.Point(258, 3);
@@ -133,6 +134,7 @@
             this.btnPrevious.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnPrevious.AutoSize = true;
             this.btnPrevious.BackColor = System.Drawing.Color.Silver;
+            this.btnPrevious.Enabled = false;
             this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrevious.Image = ((System.Drawing.Image)(resources.GetObject("btnPrevious.Image")));
             this.btnPrevious.Location = new System.Drawing.Point(105, 3);
@@ -208,6 +210,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Enabled = false;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -215,7 +218,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // playlistToolStripMenuItem
@@ -224,6 +227,7 @@
             this.loadPlaylistToolStripMenuItem,
             this.savePlaylistToolStripMenuItem,
             this.scramblePlaylistToolStripMenuItem});
+            this.playlistToolStripMenuItem.Enabled = false;
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
             this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.playlistToolStripMenuItem.Text = "Playlist";

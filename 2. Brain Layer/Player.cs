@@ -86,7 +86,17 @@ namespace _2.Brain_Layer
             {
                 try
                 {
-                    PlayPauseSong();
+                    if (!isPlaying)
+                    {
+                        PlaySong();
+                    }
+
+                    else
+                    {
+                        PauseSong();
+                    }
+
+                    mainForm.SwapPlayPauseButtonImage();
                 }
 
                 catch (Exception ex)
@@ -98,8 +108,8 @@ namespace _2.Brain_Layer
 
         private void mainForm_StopSong(object sender, EventArgs e)
         {
+            StopSong();
             isPlaying = false;
-            MCIController.StopCurrentSong();
         }
 
         private void mainForm_PlaylistToggle(object sender, EventArgs e)
@@ -109,28 +119,36 @@ namespace _2.Brain_Layer
 
         private void mainForm_PlaylistDoubleClick(object sender, EventArgs e)
         {
+            StopSong();
             currentSong = currentPlaylist.CurrentSong = currentPlaylist.Songs[mainForm.selectedPlaylistIndex];
             mainForm.UpdateCurrentSongLabel(currentSong.Name);
-            PlayPauseSong();
+
+            if (isPlaying == false)
+            {
+                mainForm.SwapPlayPauseButtonImage();
+            }
+
+            PlaySong();
         }
 
         #endregion
 
-        private void PlayPauseSong()
+        private void PlaySong()
         {
-            if (!isPlaying)
-            {
-                MCIController.SetCurrentSong(currentSong.Path);
-                MCIController.PlayCurrentSong();
-            }
+            MCIController.SetCurrentSong(currentSong.Path);
+            MCIController.PlayCurrentSong();
+            isPlaying = true;
+        }
 
-            else
-            {
-                MCIController.PauseCurrentSong();
-            }
+        private void PauseSong()
+        {
+            MCIController.PauseCurrentSong();
+            isPlaying = false;
+        }
 
-            isPlaying = !isPlaying;
-            mainForm.SwapPlayPauseButtonImage();
+        private void StopSong()
+        {
+            MCIController.StopCurrentSong();
         }
     }
 }
