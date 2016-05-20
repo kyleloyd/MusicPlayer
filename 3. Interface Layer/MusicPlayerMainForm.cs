@@ -13,18 +13,29 @@ namespace _3.Interface_Layer
 {
     public partial class MusicPlayerMainForm : Form
     {
-        #region String Constants
+        #region Private Fields
+
         private const string playingPrefix = "Now Playing: ";
         private const string playingDefault = "< none >";
+
         private bool isPaused;
         private bool playlistIsShowing;
+
+        public int selectedPlaylistIndex;
+
         #endregion
 
         #region Events
+
         public event EventHandler OpenSong;
         public event EventHandler PlayPauseSong;
         public event EventHandler StopSong;
+        public event EventHandler PlaylistToggle;
+        public event EventHandler PlaylistDoubleClick;
+
         #endregion
+
+        #region Constructor
 
         public MusicPlayerMainForm()
         {
@@ -40,12 +51,12 @@ namespace _3.Interface_Layer
             playlistIsShowing = false;
         }
 
-        public void UpdateCurrentSongLabel(string name)
-        {
-            lblPlaying.Text = playingPrefix + name;
-        }
+        #endregion
 
-        #region Open
+        #region Event Methods
+
+        #region -- Open Methods
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             if (OpenSong != null)
@@ -63,9 +74,16 @@ namespace _3.Interface_Layer
 
             return null;
         }
+
+        public void UpdateCurrentSongLabel(string name)
+        {
+            lblPlaying.Text = playingPrefix + name;
+        }
+
         #endregion
 
-        #region Play
+        #region -- Play Methods
+
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (PlayPauseSong != null)
@@ -88,9 +106,9 @@ namespace _3.Interface_Layer
 
             isPaused = !isPaused;
         }
+
         #endregion
 
-        #region Stop
         private void btnStop_Click(object sender, EventArgs e)
         {
             if (StopSong != null)
@@ -103,15 +121,17 @@ namespace _3.Interface_Layer
 
         #endregion
 
-        private void btnPlaylist_Click(object sender, EventArgs e)
+        #region Playlist Actions
+
+        private void btnDisplayPlaylist_Click(object sender, EventArgs e)
         {
             if (playlistIsShowing)
             {
                 this.Left = this.Left + 305;
                 tlpMaster.ColumnStyles[0] = new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0F);
                 tlpMaster.ColumnStyles[1] = new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F);
-                btnPlaylist.Image = Properties.Resources.playlist_open;
-                btnPlaylist.BackColor = Color.FromArgb(64, 64, 64);
+                btnDisplayPlaylist.Image = Properties.Resources.playlist;
+                btnDisplayPlaylist.BackColor = Color.Silver;
                 this.Width = 325;
             }
 
@@ -120,12 +140,38 @@ namespace _3.Interface_Layer
                 this.Left = this.Left - 305;
                 tlpMaster.ColumnStyles[0] = new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F);
                 tlpMaster.ColumnStyles[1] = new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F);
-                btnPlaylist.Image = Properties.Resources.playlist;
-                btnPlaylist.BackColor = Color.Silver;
+                btnDisplayPlaylist.Image = Properties.Resources.playlist_open;
+                btnDisplayPlaylist.BackColor = Color.FromArgb(64, 64, 64);
                 this.Width = 630;
             }
 
             playlistIsShowing = !playlistIsShowing;
+
+            if (PlaylistToggle != null)
+            {
+                PlaylistToggle(sender, e);
+            }
         }
+
+        public void UpdatePlaylistListBox(List<string> songs)
+        {
+            foreach (var item in songs.Where(x => !lbCurrentPlaylist.Items.Contains(x)))
+            {
+                lbCurrentPlaylist.Items.Add(item);
+            }
+        }
+
+        private void lbCurrentPlaylist_DoubleClick(object sender, MouseEventArgs e)
+        {
+            selectedPlaylistIndex = this.lbCurrentPlaylist.IndexFromPoint(e.Location);
+            if (selectedPlaylistIndex != System.Windows.Forms.ListBox.NoMatches && PlaylistDoubleClick != null)
+            {
+                PlaylistDoubleClick(sender, e);
+            }
+        }
+
+        #endregion
+
+
     }
 }

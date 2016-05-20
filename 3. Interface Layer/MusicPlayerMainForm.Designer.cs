@@ -34,15 +34,23 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnPlaylist = new System.Windows.Forms.Button();
+            this.btnDisplayPlaylist = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tlpMaster = new System.Windows.Forms.TableLayoutPanel();
             this.tlpPlayer = new System.Windows.Forms.TableLayoutPanel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scramblePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblPlaying = new System.Windows.Forms.Label();
             this.lbCurrentPlaylist = new System.Windows.Forms.ListBox();
             this.tlpControls.SuspendLayout();
             this.tlpMaster.SuspendLayout();
             this.tlpPlayer.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpControls
@@ -59,7 +67,7 @@
             this.tlpControls.Controls.Add(this.btnStop, 4, 0);
             this.tlpControls.Controls.Add(this.btnPlay, 3, 0);
             this.tlpControls.Controls.Add(this.btnPrevious, 2, 0);
-            this.tlpControls.Controls.Add(this.btnPlaylist, 1, 0);
+            this.tlpControls.Controls.Add(this.btnDisplayPlaylist, 1, 0);
             this.tlpControls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpControls.Location = new System.Drawing.Point(0, 227);
             this.tlpControls.Margin = new System.Windows.Forms.Padding(0);
@@ -133,18 +141,18 @@
             this.btnPrevious.TabIndex = 6;
             this.btnPrevious.UseVisualStyleBackColor = false;
             // 
-            // btnPlaylist
+            // btnDisplayPlaylist
             // 
-            this.btnPlaylist.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPlaylist.BackColor = System.Drawing.Color.Silver;
-            this.btnPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlaylist.Image = ((System.Drawing.Image)(resources.GetObject("btnPlaylist.Image")));
-            this.btnPlaylist.Location = new System.Drawing.Point(54, 3);
-            this.btnPlaylist.Name = "btnPlaylist";
-            this.btnPlaylist.Size = new System.Drawing.Size(45, 25);
-            this.btnPlaylist.TabIndex = 8;
-            this.btnPlaylist.UseVisualStyleBackColor = false;
-            this.btnPlaylist.Click += new System.EventHandler(this.btnPlaylist_Click);
+            this.btnDisplayPlaylist.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnDisplayPlaylist.BackColor = System.Drawing.Color.Silver;
+            this.btnDisplayPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDisplayPlaylist.Image = global::_3.Interface_Layer.Properties.Resources.playlist;
+            this.btnDisplayPlaylist.Location = new System.Drawing.Point(54, 3);
+            this.btnDisplayPlaylist.Name = "btnDisplayPlaylist";
+            this.btnDisplayPlaylist.Size = new System.Drawing.Size(45, 25);
+            this.btnDisplayPlaylist.TabIndex = 8;
+            this.btnDisplayPlaylist.UseVisualStyleBackColor = false;
+            this.btnDisplayPlaylist.Click += new System.EventHandler(this.btnDisplayPlaylist_Click);
             // 
             // openFileDialog1
             // 
@@ -163,7 +171,6 @@
             this.tlpMaster.Name = "tlpMaster";
             this.tlpMaster.RowCount = 1;
             this.tlpMaster.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMaster.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpMaster.Size = new System.Drawing.Size(309, 259);
             this.tlpMaster.TabIndex = 1;
             // 
@@ -171,18 +178,73 @@
             // 
             this.tlpPlayer.ColumnCount = 1;
             this.tlpPlayer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpPlayer.Controls.Add(this.tlpControls, 0, 2);
-            this.tlpPlayer.Controls.Add(this.lblPlaying, 0, 1);
+            this.tlpPlayer.Controls.Add(this.menuStrip1, 0, 0);
+            this.tlpPlayer.Controls.Add(this.tlpControls, 0, 3);
+            this.tlpPlayer.Controls.Add(this.lblPlaying, 0, 2);
             this.tlpPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpPlayer.Location = new System.Drawing.Point(0, 0);
             this.tlpPlayer.Margin = new System.Windows.Forms.Padding(0);
             this.tlpPlayer.Name = "tlpPlayer";
-            this.tlpPlayer.RowCount = 3;
+            this.tlpPlayer.RowCount = 4;
+            this.tlpPlayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tlpPlayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPlayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpPlayer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tlpPlayer.Size = new System.Drawing.Size(309, 259);
             this.tlpPlayer.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.playlistToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(309, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // playlistToolStripMenuItem
+            // 
+            this.playlistToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadPlaylistToolStripMenuItem,
+            this.savePlaylistToolStripMenuItem,
+            this.scramblePlaylistToolStripMenuItem});
+            this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.playlistToolStripMenuItem.Text = "Playlist";
+            // 
+            // loadPlaylistToolStripMenuItem
+            // 
+            this.loadPlaylistToolStripMenuItem.Name = "loadPlaylistToolStripMenuItem";
+            this.loadPlaylistToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.loadPlaylistToolStripMenuItem.Text = "Load Playlist";
+            // 
+            // savePlaylistToolStripMenuItem
+            // 
+            this.savePlaylistToolStripMenuItem.Name = "savePlaylistToolStripMenuItem";
+            this.savePlaylistToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.savePlaylistToolStripMenuItem.Text = "Save Playlist";
+            // 
+            // scramblePlaylistToolStripMenuItem
+            // 
+            this.scramblePlaylistToolStripMenuItem.Name = "scramblePlaylistToolStripMenuItem";
+            this.scramblePlaylistToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.scramblePlaylistToolStripMenuItem.Text = "Scramble Playlist";
             // 
             // lblPlaying
             // 
@@ -201,15 +263,17 @@
             this.lbCurrentPlaylist.Name = "lbCurrentPlaylist";
             this.lbCurrentPlaylist.Size = new System.Drawing.Size(1, 253);
             this.lbCurrentPlaylist.TabIndex = 1;
+            this.lbCurrentPlaylist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbCurrentPlaylist_DoubleClick);
             // 
             // MusicPlayerMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(309, 259);
             this.Controls.Add(this.tlpMaster);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.Name = "MusicPlayerMainForm";
@@ -220,6 +284,8 @@
             this.tlpMaster.ResumeLayout(false);
             this.tlpPlayer.ResumeLayout(false);
             this.tlpPlayer.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -236,9 +302,16 @@
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.TableLayoutPanel tlpMaster;
         private System.Windows.Forms.TableLayoutPanel tlpPlayer;
-        private System.Windows.Forms.Button btnPlaylist;
+        private System.Windows.Forms.Button btnDisplayPlaylist;
         private System.Windows.Forms.Label lblPlaying;
         private System.Windows.Forms.ListBox lbCurrentPlaylist;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playlistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadPlaylistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savePlaylistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scramblePlaylistToolStripMenuItem;
     }
 }
 

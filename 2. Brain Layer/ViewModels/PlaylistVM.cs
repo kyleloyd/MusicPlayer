@@ -19,22 +19,13 @@ namespace _2.Brain_Layer.ViewModels
 
         public PlaylistVM(Playlist newPlaylist)
         {
-
-        }
-
-        public void AddSong(string path)
-        {
-            var newSong = new SongVM(path);
-            Songs.Add(newSong);
+            
         }
 
         public void AddSong(SongVM newSong)
         {
             Songs.Add(newSong);
-        }
 
-        public void SetCurrentSong()
-        {
             if (Songs.Count == 1)
             {
                 CurrentSong = Songs[0];

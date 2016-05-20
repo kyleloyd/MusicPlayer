@@ -14,17 +14,25 @@ namespace _2.Brain_Layer
     public class Player
     {
         #region Private Variables
+
         private MusicPlayerMainForm mainForm;
         private PlaylistVM currentPlaylist;
         private SongVM currentSong;
         private bool isPlaying;
+        private bool playlistIsActive;
+
         #endregion
+
+        #region Constructor
 
         public Player ()
         {
             mainForm = new MusicPlayerMainForm();
             currentPlaylist = new PlaylistVM();
+
             isPlaying = false;
+            playlistIsActive = false;
+
             InitializeEvents();
 
             mainForm.ShowDialog();
@@ -35,20 +43,40 @@ namespace _2.Brain_Layer
             mainForm.OpenSong += mainForm_OpenSong;
             mainForm.PlayPauseSong += mainForm_PlayPauseSong;
             mainForm.StopSong += mainForm_StopSong;
+            mainForm.PlaylistToggle += mainForm_PlaylistToggle;
+            mainForm.PlaylistDoubleClick += mainForm_PlaylistDoubleClick;
         }
 
+        #endregion
+
         #region Event Methods
+
         private void mainForm_OpenSong(object sender, EventArgs e)
         {
             var result = mainForm.OpenNewSong();
 
             if (result != null)
             {
-                currentPlaylist.AddSong(result);
-                currentPlaylist.SetCurrentSong();
-                currentSong = currentPlaylist.CurrentSong;
+                if (playlistIsActive)
+                {
+                    currentPlaylist.AddSong(new SongVM(result));
+                    currentSong = currentPlaylist.CurrentSong;
 
-                mainForm.UpdateCurrentSongLabel(currentPlaylist.CurrentSong.Name);
+                    var songNames = new List<string>();
+                    foreach (var song in currentPlaylist.Songs)
+                    {
+                        songNames.Add(song.Name);
+                    }
+
+                    mainForm.UpdatePlaylistListBox(songNames);
+                }
+
+                else
+                {
+                    currentSong = new SongVM(result);
+                }
+
+                mainForm.UpdateCurrentSongLabel(currentSong.Name);
             }
         }
 
@@ -58,19 +86,7 @@ namespace _2.Brain_Layer
             {
                 try
                 {
-                    if (!isPlaying)
-                    {
-                        MCIController.SetCurrentSong(currentSong.Path);
-                        MCIController.PlayCurrentSong();
-                    }
-
-                    else
-                    {
-                        MCIController.PauseCurrentSong();
-                    }
-
-                    isPlaying = !isPlaying;
-                    mainForm.SwapPlayPauseButtonImage();
+                    PlayPauseSong();
                 }
 
                 catch (Exception ex)
@@ -85,11 +101,36 @@ namespace _2.Brain_Layer
             isPlaying = false;
             MCIController.StopCurrentSong();
         }
+
+        private void mainForm_PlaylistToggle(object sender, EventArgs e)
+        {
+            playlistIsActive = !playlistIsActive;
+        }
+
+        private void mainForm_PlaylistDoubleClick(object sender, EventArgs e)
+        {
+            currentSong = currentPlaylist.CurrentSong = currentPlaylist.Songs[mainForm.selectedPlaylistIndex];
+            mainForm.UpdateCurrentSongLabel(currentSong.Name);
+            PlayPauseSong();
+        }
+
         #endregion
 
-        public void PlayRandom()
+        private void PlayPauseSong()
         {
+            if (!isPlaying)
+            {
+                MCIController.SetCurrentSong(currentSong.Path);
+                MCIController.PlayCurrentSong();
+            }
 
+            else
+            {
+                MCIController.PauseCurrentSong();
+            }
+
+            isPlaying = !isPlaying;
+            mainForm.SwapPlayPauseButtonImage();
         }
     }
 }
